@@ -27,26 +27,39 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const sendTransaction = async () => {
-  /*
-  if (!walletAddress) {
-    alert('Please connect your wallet first!');
-    return;
-  }
-*/
   try {
     // Запрашиваем доступ к кошельку через MetaMask
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     // Создаем провайдера
-    const provider = new BrowserProvider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // Получаем подписанта
-    const signer = await provider.getSigner();
+    const signer = provider.getSigner();
+
+    // Получаем адрес кошелька
+    const walletAddress = await signer.getAddress();
+
+    // Проверка баланса
+    const balance = await provider.getBalance(walletAddress);
+    console.log('Current balance:', ethers.utils.formatEther(balance));
+
+    // Проверка, достаточно ли средств для отправки транзакции
+    const amountToSend = ethers.utils.parseEther('0.01');
+    const gasLimit = 21000;
+    const gasPrice = await provider.getGasPrice();
+    const totalCost = amountToSend.add(gasPrice.mul(gasLimit));
+
+    if (balance.lt(totalCost)) {
+      console.error('Insufficient funds for transaction');
+      return;
+    }
 
     // Данные для транзакции
     const tx = {
       to: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4', // Замените на нужный адрес получателя
-      value: ethers.parseEther('0.01'), // Замените на нужную сумму в ETH
+      value: amountToSend, // Замените на нужную сумму в ETH
+      gasLimit: gasLimit, // Установите газовый лимит вручную
     };
 
     // Отправляем транзакцию
@@ -57,11 +70,11 @@ const sendTransaction = async () => {
     const receipt = await transactionResponse.wait();
     console.log('Transaction confirmed:', receipt);
 
-    // Вы можете добавить состояние для хранения хэша транзакции и отображения его пользователю
   } catch (error) {
     console.error('Error sending transaction:', error);
   }
 };
+
 /*
 const sendTransaction = async ({ setError }) => {
   try {
