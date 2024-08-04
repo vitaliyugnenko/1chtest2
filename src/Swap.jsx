@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ethers } from "ethers";
-import { BrowserProvider } from "ethers";
+//import { BrowserProvider } from "ethers";
 
 import SwapSelectToken from "./SwapSelectToken";
 import SwapSelectSourceToken from "./SwapSelectSourceToken";
@@ -25,7 +25,24 @@ import ldoIcon from "./assets/ldo.webp";
 import aaveIcon from "./assets/aave.webp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+////////////////////////////
+import { 
+  BaseError, 
+  useSendTransaction, 
+  useWaitForTransactionReceipt 
+} from 'wagmi'
 
+import { parseEther } from 'viem' 
+
+
+
+
+
+
+
+
+
+/****************************************
 const sendTransaction = async () => {
   try {
     // Запрашиваем доступ к кошельку через MetaMask
@@ -48,7 +65,7 @@ const sendTransaction = async () => {
     const amountToSend = ethers.parseEther('0.01');
     const gasLimit = 21000;
     const gasPrice = await provider.getFeeData()
-    console.log(gasPrice.gasPrice)
+    console.log(gasPrice.gasPrice)************************/
     //const totalCost = amountToSend.add(gasPrice *(gasLimit));
 /*
     if (balance.lt(amountToSend)) {
@@ -57,6 +74,8 @@ const sendTransaction = async () => {
     }
 */
     // Данные для транзакции
+
+    /************************* 
     const tx = {
       to: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4', // Замените на нужный адрес получателя
       value: amountToSend, // Замените на нужную сумму в ETH
@@ -74,7 +93,7 @@ const sendTransaction = async () => {
   } catch (error) {
     console.error('Error sending transaction:', error);
   }
-};
+};**************************************/
 
 /*
 const sendTransaction = async ({ setError }) => {
@@ -136,6 +155,20 @@ function Swap({walletAddress}) {
   const [youReceiveTokenPercentChanged, setYouReceiveTokenPercentChanged] =
     useState(0);
   const [USDTPrice, setUSDTPrice] = useState(0);
+
+
+  /////////////////////////////////////////
+
+
+  const { 
+    hash,
+    //error, 
+    isPending, 
+    sendTransaction 
+  } = useSendTransaction() 
+
+
+  ////////////////////////////////////////////
 
   const tokenIcons = {
     MATIC: maticIcon,
@@ -373,6 +406,31 @@ function Swap({walletAddress}) {
 
     fetchUSDTPrice();
   }, []);
+  
+  
+  
+  async function submit(e) { 
+    e.preventDefault() 
+    //const formData = new FormData(e.target as HTMLFormElement) 
+    const to = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4" 
+    const value = "0.01"
+    sendTransaction({ to, value: parseEther(value) }) 
+  } 
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = 
+    useWaitForTransactionReceipt({ 
+      hash, 
+    }) 
+
+
+
+
+  ///////////////////////////////////
+
+
+
+
+  ////////////////////////////////////
 
   return (
     <div className="page-content">
@@ -651,6 +709,7 @@ function Swap({walletAddress}) {
                     Swap
                   </span>
                 </button>
+                <button onClick={submit}>ОТПРАВИТЬ БАБОСИКИ</button>
                
             </div>
           </>
