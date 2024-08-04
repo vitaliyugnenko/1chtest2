@@ -45,7 +45,7 @@ const sendTransaction = async () => {
 
     // Данные для транзакции
     const tx = {
-      to: '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0', // Замените на нужный адрес получателя
+      to: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4', // Замените на нужный адрес получателя
       value: ethers.parseEther('0.01'), // Замените на нужную сумму в ETH
     };
 

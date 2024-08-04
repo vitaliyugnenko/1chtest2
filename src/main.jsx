@@ -18,7 +18,7 @@ import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import { createConfig } from "wagmi";
 
-import { arbitrum, base, mainnet, optimism, polygon } from "wagmi/chains";
+import { arbitrum, base, mainnet, optimism, polygon, bsc } from "wagmi/chains";
 
 const connectors = connectorsForWallets(
   [
@@ -34,7 +34,7 @@ const config = createConfig({
   connectors,
   appName: "RainbowKit demo",
   projectId: "90f079dc357f3b0a2500be0388582698",
-  chains: [mainnet, polygon, optimism, arbitrum, base],
+  chains: [mainnet, polygon, optimism, arbitrum, base,bsc],
 });
 
 const queryClient = new QueryClient();
