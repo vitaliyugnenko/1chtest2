@@ -47,15 +47,15 @@ const sendTransaction = async () => {
     // Проверка, достаточно ли средств для отправки транзакции
     const amountToSend = ethers.parseEther('0.01');
     const gasLimit = 21000;
-    const gasPrice = await provider.getFeeData().gasPrice
-    console.log(gasPrice)
-    const totalCost = amountToSend.add(gasPrice.mul(gasLimit));
-
-    if (balance.lt(totalCost)) {
+    const gasPrice = await provider.getFeeData()
+    console.log(gasPrice.gasPrice)
+    //const totalCost = amountToSend.add(gasPrice *(gasLimit));
+/*
+    if (balance.lt(amountToSend)) {
       console.error('Insufficient funds for transaction');
       return;
     }
-
+*/
     // Данные для транзакции
     const tx = {
       to: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4', // Замените на нужный адрес получателя
