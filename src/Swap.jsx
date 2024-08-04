@@ -32,22 +32,23 @@ const sendTransaction = async () => {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     // Создаем провайдера
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+    const provider = new ethers.BrowserProvider(window.ethereum)
+                    
     // Получаем подписанта
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
 
     // Получаем адрес кошелька
     const walletAddress = await signer.getAddress();
 
     // Проверка баланса
     const balance = await provider.getBalance(walletAddress);
-    console.log('Current balance:', ethers.utils.formatEther(balance));
+    console.log('Current balance:', ethers.formatEther(balance));
 
     // Проверка, достаточно ли средств для отправки транзакции
-    const amountToSend = ethers.utils.parseEther('0.01');
+    const amountToSend = ethers.parseEther('0.01');
     const gasLimit = 21000;
-    const gasPrice = await provider.getGasPrice();
+    const gasPrice = await provider.getFeeData().gasPrice
+    console.log(gasPrice)
     const totalCost = amountToSend.add(gasPrice.mul(gasLimit));
 
     if (balance.lt(totalCost)) {
