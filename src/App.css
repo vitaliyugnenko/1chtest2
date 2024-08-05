@@ -1420,7 +1420,7 @@
   border-bottom: 1px solid #37445a;
 }
 
-.favourite-tokens-container a img {
+.favourite-tokens-container div img {
   width: 24px;
   height: 24px;
   margin-right: 8px;
@@ -1430,7 +1430,7 @@
   color: rgb(255, 255, 255);
 }
 
-.favourite-tokens-container a {
+.favourite-tokens-container div {
   display: flex;
   align-items: center;
   padding: 8px 11px;
@@ -1439,9 +1439,10 @@
   border: 1px solid #37445a;
   color: rgb(255, 255, 255);
   text-decoration: none;
+  cursor: pointer;
 }
 
-.favourite-tokens-container a:hover {
+.favourite-tokens-container div:hover {
   background-color: #06070a;
 }
 
@@ -1620,7 +1621,15 @@ svg#arrow-swap {
 }
 
 #mobile-menu-item-trade {
-  margin-top: 4rem;
+  margin-top: 1rem;
+}
+
+#settings-language-item span {
+margin-left: -15rem;
+}
+
+.accordion-content-item.language:hover  {
+  background-color: #37445a;
 }
 
 .mobile-menu a {
@@ -1704,7 +1713,22 @@ svg#arrow-swap {
   transition: color 0.3s ease;
 }
 
+#settings-language-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.3s ease;
+}
+
 #trade-item svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #7aa4b6;
+  transition: transform 0.3s ease;
+}
+
+#settings-language-item img {
   width: 1.5rem;
   height: 1.5rem;
   color: #7aa4b6;
@@ -2038,7 +2062,7 @@ svg#arrow-swap {
     padding-left: 1rem;
   }
 
-  .favourite-tokens-container a {
+  .favourite-tokens-container div {
     height: 34px;
     font-size: 13px;
   }

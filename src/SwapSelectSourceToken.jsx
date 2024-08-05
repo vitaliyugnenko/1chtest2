@@ -12,8 +12,12 @@ import uniIcon from "./assets/uni.webp";
 import grtIcon from "./assets/grt.webp";
 import ldoIcon from "./assets/ldo.webp";
 import aaveIcon from "./assets/aave.webp";
+import ethIcon from "./assets/eth.webp";
 
 import backIcon from "./assets/back.png";
+
+import pepeIcon from "./assets/pepe.webp"
+import shibaIcon from "./assets/shib.webp"
 
 function SwapSelectSourceToken({ SwapSelect, setYouPayToken }) {
   const setSwapSelect = () => {
@@ -60,35 +64,35 @@ function SwapSelectSourceToken({ SwapSelect, setYouPayToken }) {
         </div>
 
         <div className="favourite-tokens-container">
-          <a href="">
+          <div onClick={() => handleTokenSelect("MATIC")}>
             <img src={maticIcon} />
             <span>Matic</span>
-          </a>
-          <a href="">
+          </div>
+          <div onClick={() => handleTokenSelect("WETH")}>
             <img src={wethIcon} />
             <span>WETH</span>
-          </a>
-          <a href="">
+          </div>
+          <div onClick={() => handleTokenSelect("DAI")}>
             <img src={daiIcon} />
             <span>DAI</span>
-          </a>
-          <a href="">
+          </div>
+          <div onClick={() => handleTokenSelect("USDC")}>
             <img src={usdcIcon} />
             <span>USDC</span>
-          </a>
+          </div>
 
-          <a href="">
+          <div onClick={() => handleTokenSelect("USDT")}>
             <img src={usdtIcon} />
             <span>USDT</span>
-          </a>
-          <a href="">
+          </div>
+          <div onClick={() => handleTokenSelect("WBTC")}>
             <img src={wbtcIcon} />
             <span>WBTC</span>
-          </a>
-          <a href="">
+          </div>
+          <div onClick={() => handleTokenSelect("DE")}>
             <img src={deIcon} />
             <span>DE</span>
-          </a>
+          </div>
         </div>
 
         <div className="tokens-list-wrapper">
@@ -254,17 +258,27 @@ function SwapSelectSourceToken({ SwapSelect, setYouPayToken }) {
               <img src={pinIcon} />
             </div>
           </div>
+
+
+
+
+
+
+
+
+
+
           <div className="tokens-list-wrapper-item">
             <div className="tokens-list-wrapper-item-icon">
-              <img src={aaveIcon} />
+              <img src={ethIcon} />
             </div>
             <div
               className="tokens-list-wrapper-item-name"
               onClick={() => handleTokenSelect("AAVE")}
             >
               <div className="tokens-list-wrapper-item-name-amount">
-                <div>Aave</div>
-                <div>0 AAVE</div>
+                <div>Ether</div>
+                <div>0 ETH</div>
               </div>
               <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
             </div>
@@ -272,6 +286,44 @@ function SwapSelectSourceToken({ SwapSelect, setYouPayToken }) {
               <img src={pinIcon} />
             </div>
           </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={pepeIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("PEPE")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Pepe</div>
+                <div>0 PEPE</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={shibaIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("SHIB")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>SHIBA INU</div>
+                <div>0 SHIB</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          
+          
         </div>
       </div>
     </div>

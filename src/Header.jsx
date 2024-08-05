@@ -48,7 +48,7 @@ const checkWalletConnection = async ({ setWalletAddress, setError }) => {
     if (accounts.length > 0) {
       const walletAddress = accounts[0];
       setWalletAddress(formatAddress(walletAddress));
-      console.log("Wallet Address:", walletAddress);
+      
     }
   } catch (err) {
     setError(err.message);
@@ -70,6 +70,7 @@ function Header({ walletAddress, setWalletAddress }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isTradeOpen, setIsTradeOpen] = useState(false);
   const [isBridgesOpen, setIsBridgesOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const [timerId, setTimerId] = useState(null);
   const [timer, setTimer] = useState(null);
@@ -167,6 +168,10 @@ function Header({ walletAddress, setWalletAddress }) {
 
   const toggleBridges = () => {
     setIsBridgesOpen(!isBridgesOpen);
+  };
+
+  const toggleSettings = () => {
+    setIsSettingsOpen(!isSettingsOpen);
   };
 
   useEffect(() => {
@@ -1304,6 +1309,66 @@ function Header({ walletAddress, setWalletAddress }) {
         <div id="card-item" className="mobile-menu-item">
           <span href="#card">Card</span>
         </div>
+
+        <div id="mobile-menu-item-trade" className="mobile-menu-item">
+          <div
+            id="trade-accordion"
+            className={`accordion ${isTradeOpen ? "open" : ""}`}
+            onClick={toggleSettings}
+          >
+            <div id="settings-language-item" className="accordion-title">
+            <img src={iconUSFlag} />
+              <span>English</span>
+              <svg
+                id="arrow"
+                viewBox="0 0 17 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.125 6L8.125 10L12.125 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></path>
+              </svg>
+            </div>
+
+            <div
+              className={`accordion-content-trade ${isSettingsOpen ? "open" : ""}`}
+            >
+              <div className="accordion-content-item language" onClick={() => switchLanguage("rus")}>
+              <img src={iconRUSFlag} />
+              <span>Русский</span>
+              </div>
+              <div className="accordion-content-item language" onClick={() => switchLanguage("en")}>
+              <img src={iconUSFlag} />
+              <span>English</span>
+              </div>
+              <div className="accordion-content-item language">
+              <img src={iconFRFlag} />
+              <span>Français</span>
+              </div>
+              <div className="accordion-content-item language">
+              <img src={iconIDFlag} />
+              <span>Bahasa Indonesia</span>
+              </div>
+              <div className="accordion-content-item language">
+              <img src={iconESFlag} />
+                      <span>Español</span>
+              </div>
+              
+
+              <div className="accordion-content-item language">
+              <img src={iconPTFlag} />
+              <span>Português</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      
       </nav>
     </div>
   );

@@ -21,6 +21,9 @@ import uniIcon from "./assets/uni.webp";
 import grtIcon from "./assets/grt.webp";
 import ldoIcon from "./assets/ldo.webp";
 import aaveIcon from "./assets/aave.webp";
+import pepeIcon from "./assets/pepe.webp";
+import shibIcon from "./assets/shib.webp";
+import ethIcon from "./assets/eth.webp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import {
@@ -69,6 +72,9 @@ function Swap({ walletAddress }) {
     GRT: grtIcon,
     LDO: ldoIcon,
     AAVE: aaveIcon,
+    PEPE: pepeIcon,
+    SHIB: shibIcon,
+    ETH: ethIcon,
   };
 
   const handleSwap = () => {
