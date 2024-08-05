@@ -19,9 +19,6 @@ const CryptoPrice = () => {
           },
         });
 
-        // Логирование для отладки
-        console.log("API Response:", response.data);
-
         if (response.data.data && response.data.data[symbol]) {
           setPrice(response.data.data[symbol].quote.USD.price);
         } else {

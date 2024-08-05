@@ -61,7 +61,7 @@
 }
 
 .header-left-col {
-  width: 50%;
+  /*min-width: 60%;*/
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -90,7 +90,7 @@
 }
 
 .nav-menu-item {
-  margin-left: 1.25rem;
+  margin-left: 1rem;
   position: relative;
 }
 
@@ -124,8 +124,8 @@
 }
 
 .header-buttons {
-  margin-right: 3rem;
-  width: 50%;
+  margin-right: 0.5rem;
+  width: 40%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -1233,7 +1233,7 @@
 
 .dropdown-settings-theme-dark-icon {
   margin-left: 1rem;
-  margin-right: -18rem;
+  margin-right: -16rem;
 }
 
 .dropdown-settings-theme-light-icon {
@@ -1800,11 +1800,9 @@ svg#arrow-swap {
   margin-top: 0.5rem;
 }
 
-
 .dropdown-settings-container {
   width: 100%;
   height: 100%;
- 
 }
 
 .dropdown-settings-language-content {
@@ -1814,7 +1812,6 @@ svg#arrow-swap {
   display: flex;
   flex-wrap: wrap;
   padding-left: 2rem;
-  
 }
 
 .dropdown-settings-language-title {
@@ -1840,7 +1837,6 @@ svg#arrow-swap {
   cursor: pointer;
 }
 
-
 .dropdown-settings-item-language {
   height: 40px;
   margin-bottom: 8px;
@@ -1857,14 +1853,12 @@ svg#arrow-swap {
   width: 24px;
   height: 24px;
   margin-right: 1rem;
-
 }
 
 .dropdown-settings-item-language span {
- font-size: 16px;
- font-weight: 500;
- line-height: 26px;
-
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
 }
 
 /* Стили для аккордеонов */ /*
@@ -1992,10 +1986,6 @@ svg#arrow-swap {
     width: 100%;
   }
 
-  .header-left-col {
-    width: 70px;
-  }
-
   .header-buttons {
     width: auto;
   }
@@ -2009,7 +1999,7 @@ svg#arrow-swap {
   }
 
   .header-left-col {
-    width: 40px;
+    max-width: 20%;
     margin-left: 0.3rem;
   }
 
@@ -2092,7 +2082,7 @@ svg#arrow-swap {
 
   .header-buttons {
     margin-left: 0.25rem;
-    margin-right: 1.5rem;
+    margin-right: 1rem;
   }
 
   .header-container {

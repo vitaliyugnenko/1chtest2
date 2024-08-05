@@ -25,12 +25,12 @@ import iconLightTheme from "./assets/Light theme-1.svg";
 import iconDarkTheme from "./assets/dark-theme.svg";
 import selectedItemIcon from "./assets/selected-item.svg";
 
-import iconRUSFlag from "./assets/RU_icon.webp"
-import iconFRFlag from "./assets/FR_icon.webp"
-import iconTRFlag from "./assets/TR_icon.webp"
-import iconPTFlag from "./assets/PT_icon.webp"
-import iconESFlag from "./assets/ES_icon.webp"
-import iconIDFlag from "./assets/ID_icon.webp"
+import iconRUSFlag from "./assets/RU_icon.webp";
+import iconFRFlag from "./assets/FR_icon.webp";
+import iconTRFlag from "./assets/TR_icon.webp";
+import iconPTFlag from "./assets/PT_icon.webp";
+import iconESFlag from "./assets/ES_icon.webp";
+import iconIDFlag from "./assets/ID_icon.webp";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
@@ -56,42 +56,10 @@ const checkWalletConnection = async ({ setWalletAddress, setError }) => {
   }
 };
 
-/*
-const connectWallet = async ({ setWalletAddress, setError }) => {
-  try {
-    // Определение мобильного устройства
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-    if (window.ethereum) {
-      // Если Ethereum доступен, продолжаем
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      if (accounts.length > 0) {
-        const walletAddress = accounts[0];
-        setWalletAddress(walletAddress);
-        console.log("Wallet Address:", walletAddress);
-      }
-    } else if (isMobile) {
-      // Если это мобильное устройство и MetaMask не доступен, используем deeplink
-      console.log("Redirecting to MetaMask app...");
-      const deeplink = "https://metamask.app.link/dapp/yourdappurl.com";
-      window.location.href = deeplink;
-    } else {
-      throw new Error("No crypto wallet found. Please install it.");
-    }
-  } catch (err) {
-    setError(err.message);
-    console.log(err.message);
-  }
-};*/
-
-function Header({walletAddress, setWalletAddress}) {
+function Header({ walletAddress, setWalletAddress }) {
   const [error, setError] = useState();
-  //const [walletAddress, setWalletAddress] = useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [dropdownBridgeVisible, setDropdownBridgeVisible] = useState(false);
-  const [dropdownNetworksVisible, setDropdownNetworksVisible] = useState(false);
   const [dropdownTradeVisible, setDropdownTradeVisible] = useState(false);
   const [dropdownSettingsVisible, setDropdownSettingsVisible] = useState(false);
 
@@ -109,6 +77,8 @@ function Header({walletAddress, setWalletAddress}) {
   const dropdownRef3 = useRef(null);
   const dropdownRef2 = useRef(null);
   const dropdownRef = useRef(null);
+
+  const [language, setLanguage] = useState("en"); // Default language is English
 
   const handleMouseEnter = () => {
     if (timerId) {
@@ -199,9 +169,16 @@ function Header({walletAddress, setWalletAddress}) {
     setIsBridgesOpen(!isBridgesOpen);
   };
 
-  const handleConnectWallet = async () => {
-    setError();
-    await connectWallet({ setWalletAddress, setError });
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("appLanguage");
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+    }
+  }, []);
+
+  const switchLanguage = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("appLanguage", lang);
   };
 
   useEffect(() => {
@@ -270,7 +247,7 @@ function Header({walletAddress, setWalletAddress}) {
             onMouseEnter={handleMouseEnter2}
             onMouseLeave={handleMouseLeave2}
           >
-            <span>Trade</span>
+            <span>{language === "en" ? "Trade" : "Трейдинг"}</span>
             <svg
               id="arrow"
               viewBox="0 0 17 16"
@@ -294,28 +271,54 @@ function Header({walletAddress, setWalletAddress}) {
               onMouseEnter={handleDropdownMouseEnter2}
               onMouseLeave={handleDropdownMouseLeave2}
             >
-              <a className="dropdown-trade-item" href="https://app.1inch.io/#/1/simple/swap/USDT/WBTC" target="_blank">
+              <a
+                className="dropdown-trade-item"
+                href="https://app.1inch.io/#/1/simple/swap/USDT/WBTC"
+                target="_blank"
+              >
                 <img src={simpleModeIcon} />
                 <div
                   id="dropdown-trade-item-selected"
                   className="dropdown-trade-item-content"
                 >
-                  <h2>Simple mode</h2>
-                  <span>The most user-friendly way to trade</span>
+                  <h2>{language === "en" ? "Simple mode" : "Простой режим"}</h2>
+                  <span>
+                    {language === "en"
+                      ? "most user-friendly way to trade"
+                      : "Самый удобный способ для трейдинга"}{" "}
+                  </span>
                 </div>
               </a>
-              <a className="dropdown-trade-item" href="https://app.1inch.io/#/1/advanced/swap/USDT/WBTC" target="_blank">
+              <a
+                className="dropdown-trade-item"
+                href="https://app.1inch.io/#/1/advanced/swap/USDT/WBTC"
+                target="_blank"
+              >
                 <img src={advancedModeIcon} />
                 <div className="dropdown-trade-item-content">
                   <h2>Advanced mode</h2>
-                  <span>Take advantage of all the familiar tools</span>
+                  <span>
+                    {language === "en"
+                      ? "Take advantage of all the familiar tools"
+                      : "Воспользуйтесь всеми доступными инструментами"}
+                  </span>
                 </div>
               </a>
-              <a className="dropdown-trade-item" href="https://app.1inch.io/#/1/advanced/limit-order/USDT/WBTC" target="_blank">
+              <a
+                className="dropdown-trade-item"
+                href="https://app.1inch.io/#/1/advanced/limit-order/USDT/WBTC"
+                target="_blank"
+              >
                 <img src={limitOrderIcon} />
                 <div className="dropdown-trade-item-content">
-                  <h2>Limit order</h2>
-                  <span>Schedule a swap to get the best price</span>
+                  <h2>
+                    {language === "en" ? "Limit order" : "Лимитный ордер"}
+                  </h2>
+                  <span>
+                    {language === "en"
+                      ? "Schedule a swap to get the best price"
+                      : "Запланируйте своп по более выгодной цене"}
+                  </span>
                 </div>
               </a>
             </div>
@@ -329,7 +332,7 @@ function Header({walletAddress, setWalletAddress}) {
             onMouseEnter={handleMouseEnter3}
             onMouseLeave={handleMouseLeave3}
           >
-            <span>Bridges</span>
+            <span>{language === "en" ? "Bridges" : "Мосты"}</span>
             <svg
               id="arrow"
               viewBox="0 0 17 16"
@@ -353,47 +356,91 @@ function Header({walletAddress, setWalletAddress}) {
               onMouseLeave={handleDropdownMouseLeave3}
               ref={dropdownRef3}
             >
-              <a className="dropdownBridges-item" href="https://cbridge.celer.network/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://cbridge.celer.network/"
+                target="_blank"
+              >
                 <img src={bnbIcon} />
                 <span>BNB Chain bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://wallet.polygon.technology/polygon/bridge/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://wallet.polygon.technology/polygon/bridge/"
+                target="_blank"
+              >
                 <img src={polygonIcon} />
                 <span>Polygon bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://app.optimism.io/bridge" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://app.optimism.io/bridge"
+                target="_blank"
+              >
                 <img src={optimismIcon} />
                 <span>Optimism bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://bridge.arbitrum.io/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://bridge.arbitrum.io/"
+                target="_blank"
+              >
                 <img src={arbitrumIcon} />
                 <span>Arbitrum bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://omni.gnosischain.com/bridge" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://omni.gnosischain.com/bridge"
+                target="_blank"
+              >
                 <img src={gnosisIcon} />
                 <span>Gnosis Chain bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://bridge.avax.network/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://bridge.avax.network/"
+                target="_blank"
+              >
                 <img src={avalancheIcon} />
                 <span>Avalanche bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://cbridge.celer.network/250/1/WOO" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://cbridge.celer.network/250/1/WOO"
+                target="_blank"
+              >
                 <img src={fantomIcon} />
                 <span>Fantom bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://scope.klaytn.com/bridge" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://scope.klaytn.com/bridge"
+                target="_blank"
+              >
                 <img src={klaytnIcon} />
                 <span>Klaytn bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://rainbowbridge.app/transfer" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://rainbowbridge.app/transfer"
+                target="_blank"
+              >
                 <img src={auroraIcon} />
                 <span>Aurora bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://bridge.zksync.io/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://bridge.zksync.io/"
+                target="_blank"
+              >
                 <img src={zksyncIcon} />
                 <span>zkSync Era bridge</span>
               </a>
-              <a className="dropdownBridges-item" href="https://bridge.base.org/" target="_blank">
+              <a
+                className="dropdownBridges-item"
+                href="https://bridge.base.org/"
+                target="_blank"
+              >
                 <img src={baseIcon} />
                 <span>Base bridge</span>
               </a>
@@ -406,7 +453,9 @@ function Header({walletAddress, setWalletAddress}) {
             </a>
           </div>
           <div className="nav-menu-item">
-            <span className="nav-menu-item-buy-crypto">Buy Crypto</span>
+            <span className="nav-menu-item-buy-crypto">
+              {language === "en" ? "Buy crypto" : "Купить криптовалюту"}
+            </span>
           </div>
           <div className="nav-menu-item">
             <a href="https://1inch.io/card/" target="_blank">
@@ -508,7 +557,9 @@ function Header({walletAddress, setWalletAddress}) {
                     </g>
                   </svg>
 
-                  <span>Documentation</span>
+                  <span>
+                    {language === "en" ? "Documentation" : "Документация"}
+                  </span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -548,7 +599,7 @@ function Header({walletAddress, setWalletAddress}) {
                       ></path>
                     </g>
                   </svg>
-                  <span>Blog</span>
+                  <span>{language === "en" ? "Blog" : "Блог"}</span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -596,7 +647,7 @@ function Header({walletAddress, setWalletAddress}) {
                       ></path>
                     </g>
                   </svg>
-                  <span>Help</span>
+                  <span>{language === "en" ? "Help" : "Помощь"}</span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -636,7 +687,11 @@ function Header({walletAddress, setWalletAddress}) {
                       ></path>
                     </g>
                   </svg>
-                  <span>Suggest a feature</span>
+                  <span>
+                    {language === "en"
+                      ? "Suggest a feature"
+                      : "Предложить идею"}
+                  </span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -678,7 +733,9 @@ function Header({walletAddress, setWalletAddress}) {
                       ></path>
                     </g>
                   </svg>
-                  <span>Report a bug</span>
+                  <span>
+                    {language === "en" ? "Report a bug" : "Сообщить об ошибке"}
+                  </span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -714,7 +771,11 @@ function Header({walletAddress, setWalletAddress}) {
                       ></path>
                     </g>
                   </svg>
-                  <span>Address screening</span>
+                  <span>
+                    {language === "en"
+                      ? "Address screening"
+                      : "Проверка адреса"}
+                  </span>
                 </a>
               </div>
               <div className="header-menu-dropdown-item">
@@ -921,7 +982,9 @@ function Header({walletAddress, setWalletAddress}) {
                       src={iconArrowLeft}
                       onClick={() => setDropdownSettingsTheme(false)}
                     />
-                    <span>Theme</span>
+                    <span>
+                      {language === "en" ? "Theme" : "Тема интерфейса"}
+                    </span>
                   </div>
                   <div className="dropdown-settings-theme-content">
                     <div className="dropdown-settings-theme-content-item">
@@ -929,7 +992,7 @@ function Header({walletAddress, setWalletAddress}) {
                         src={iconDarkTheme}
                         className="dropdown-settings-theme-dark-icon"
                       />
-                      <span>Dark</span>
+                      <span>{language === "en" ? "Dark" : " Темный"}</span>
                       <img
                         src={selectedItemIcon}
                         className="dropdown-settings-theme-content-item-selected"
@@ -940,35 +1003,60 @@ function Header({walletAddress, setWalletAddress}) {
                         src={iconLightTheme}
                         className="dropdown-settings-theme-light-icon"
                       />
-                      <span>Light</span>
+                      <span>{language === "en" ? "Light" : "Светлый"}</span>
                     </div>
                   </div>
                 </>
               ) : dropdownSettingsLanguage ? (
                 <div className="dropdown-settings-container">
                   <div className="dropdown-settings-language-title">
-                  <img
+                    <img
                       src={iconArrowLeft}
                       onClick={() => setDropdownSettingsLanguage(false)}
                     />
-                    <div>Language</div>
-
+                    <div>{language === "en" ? "Language" : "Выбрать язык"}</div>
                   </div>
                   <div className="dropdown-settings-language-content">
-                  <div className="dropdown-settings-item-language"><img src={iconUSFlag} /><span>English</span></div>
-                <div className="dropdown-settings-item-language"><img src={iconRUSFlag} /><span>Русский</span></div>
-                <div className="dropdown-settings-item-language"><img src={iconFRFlag} /><span>Français</span></div>
-                <div className="dropdown-settings-item-language"><img src={iconIDFlag} /><span>Bahasa Indonesia</span></div>
-                <div className="dropdown-settings-item-language"><img src={iconESFlag} /><span>Español</span></div>
-                <div className="dropdown-settings-item-language"><img src={iconPTFlag} /><span>Português</span></div>
+                    <div
+                      className="dropdown-settings-item-language"
+                      onClick={() => switchLanguage("en")}
+                    >
+                      <img src={iconUSFlag} />
+                      <span>English</span>
+                    </div>
+                    <div
+                      className="dropdown-settings-item-language"
+                      onClick={() => switchLanguage("rus")}
+                    >
+                      <img src={iconRUSFlag} />
+                      <span>Русский</span>
+                    </div>
+                    <div className="dropdown-settings-item-language">
+                      <img src={iconFRFlag} />
+                      <span>Français</span>
+                    </div>
+                    <div className="dropdown-settings-item-language">
+                      <img src={iconIDFlag} />
+                      <span>Bahasa Indonesia</span>
+                    </div>
+                    <div className="dropdown-settings-item-language">
+                      <img src={iconESFlag} />
+                      <span>Español</span>
+                    </div>
+                    <div className="dropdown-settings-item-language">
+                      <img src={iconPTFlag} />
+                      <span>Português</span>
+                    </div>
                   </div>
-               
                 </div>
-                
               ) : (
                 <>
                   <div className="settings-dropdown-title">
-                    <span>Global settings</span>
+                    <span>
+                      {language === "en"
+                        ? "Global settings"
+                        : "Глобальные настройки"}
+                    </span>
                     <svg
                       id="cross"
                       viewBox="0 0 24 24"
@@ -1014,8 +1102,12 @@ function Header({walletAddress, setWalletAddress}) {
                         <img src={settingsArrowRight} />
                       </div>
                       <div className="settings-dropdown-item-title">
-                        <h3>Dark</h3>
-                        <p>Theme for the web</p>
+                        <h3>{language === "en" ? "Dark" : "Темная"}</h3>
+                        <p>
+                          {language === "en"
+                            ? "Theme for the web"
+                            : "Тема интерфейса"}
+                        </p>
                       </div>
                     </div>
                     <div
@@ -1023,12 +1115,18 @@ function Header({walletAddress, setWalletAddress}) {
                       onClick={() => setDropdownSettingsLanguage(true)}
                     >
                       <div className="settings-dropdown-item-icons">
-                        <img src={iconUSFlag} />
+                        <img
+                          src={language === "en" ? iconUSFlag : iconRUSFlag}
+                        />
                         <img src={settingsArrowRight} />
                       </div>
                       <div className="settings-dropdown-item-title">
-                        <h3>English</h3>
-                        <p>Choose language</p>
+                        <h3>{language === "en" ? "English" : "Русский"}</h3>
+                        <p>
+                          {language === "en"
+                            ? "Choose language"
+                            : "Выбрать язык"}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1092,7 +1190,7 @@ function Header({walletAddress, setWalletAddress}) {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Simple mode
+                  {language === "en" ? "Simple mode" : "Простой режим"}
                 </a>
               </div>
               <div className="accordion-content-item">
@@ -1114,7 +1212,7 @@ function Header({walletAddress, setWalletAddress}) {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Limit order
+                  {language === "en" ? "Limit order" : "Лимитный ордер"}
                 </a>
               </div>
             </div>
@@ -1130,7 +1228,7 @@ function Header({walletAddress, setWalletAddress}) {
             onClick={toggleBridges}
           >
             <div id="bridges-item" className="accordion-title">
-              Bridges
+              {language === "en" ? "Bridges" : "Мосты"}
               <svg
                 id="arrow"
                 viewBox="0 0 17 16"
@@ -1199,7 +1297,9 @@ function Header({walletAddress, setWalletAddress}) {
           <span href="#portfolio">Portfolio</span>
         </div>
         <div className="mobile-menu-item">
-          <span href="#buy-crypto">Buy Crypto</span>
+          <span href="#buy-crypto">
+            {language === "en" ? "Buy crypto" : "Купить криптовалюту"}
+          </span>
         </div>
         <div id="card-item" className="mobile-menu-item">
           <span href="#card">Card</span>

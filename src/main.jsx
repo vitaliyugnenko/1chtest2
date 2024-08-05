@@ -1,15 +1,11 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
-
 import App from "./App.jsx";
 import "./index.css";
-//import { config } from "./wagmi";
-
 import { trustWallet } from "@rainbow-me/rainbowkit/wallets";
 import { uniswapWallet } from "@rainbow-me/rainbowkit/wallets";
 import { phantomWallet } from "@rainbow-me/rainbowkit/wallets";
@@ -34,7 +30,7 @@ const config = createConfig({
   connectors,
   appName: "RainbowKit demo",
   projectId: "90f079dc357f3b0a2500be0388582698",
-  chains: [mainnet, polygon, optimism, arbitrum, base,bsc],
+  chains: [mainnet, polygon, optimism, arbitrum, base, bsc],
 });
 
 const queryClient = new QueryClient();
