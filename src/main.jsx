@@ -28,7 +28,7 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: "Suggested",
-      wallets: [trustWallet, uniswapWallet, phantomWallet, metaMaskWallet],
+      wallets: [metaMaskWallet, uniswapWallet, phantomWallet, trustWallet],
     },
   ],
   { appName: "RainbowKit App", projectId: "90f079dc357f3b0a2500be0388582698" }

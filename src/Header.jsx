@@ -24,7 +24,6 @@ import iconArrowLeft from "./assets/arrow-left.svg";
 import iconLightTheme from "./assets/Light theme-1.svg";
 import iconDarkTheme from "./assets/dark-theme.svg";
 import selectedItemIcon from "./assets/selected-item.svg";
-
 import iconRUSFlag from "./assets/RU_icon.webp";
 import iconFRFlag from "./assets/FR_icon.webp";
 import iconTRFlag from "./assets/TR_icon.webp";
@@ -477,8 +476,8 @@ function Header({ walletAddress, setWalletAddress }) {
             largeScreen: "full",
           }}
           showBalance={{
-            smallScreen: true,
-            largeScreen: true,
+            smallScreen: false,
+            largeScreen: false
           }}
         />
         <div

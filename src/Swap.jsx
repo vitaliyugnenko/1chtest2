@@ -43,7 +43,14 @@ import polylasticIcon from "./assets/polylastic.webp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { useConnect, useAccount, useWriteContract } from "wagmi";
+import { useConnect, useAccount, useWriteContract, useReadContracts } from "wagmi";
+import { useBalance } from 'wagmi'
+import { erc20Abi } from 'viem'
+import {
+  BaseError,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import {
   polygon,
   arbitrum,
@@ -54,12 +61,14 @@ import {
   bscTestnet,
 } from "wagmi/chains";
 
+import { parseEther } from "viem";
+
 const usdtAbi = [
   "function transfer(address to, uint256 value) public returns (bool)",
 ];
 
-const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"; // Адрес USDT контракта в сети Polygon
-const recipientAddress = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4"; // Пример адреса получателя
+//const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"; // Адрес USDT контракта в сети Polygon
+//const recipientAddress = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4"; // Пример адреса получателя
 
 function Swap({ walletAddress }) {
   const [swapFromExpand, setSwapFromExpand] = useState(false);
@@ -78,44 +87,138 @@ function Swap({ walletAddress }) {
     useState(0);
   const [USDTPrice, setUSDTPrice] = useState(0);
 
-  const { writeContractAsync } = useWriteContract();
-
-  const handlePayment = async () => {
-    try {
-      const data = await writeContractAsync({
-        chainId: bscTestnet.id,
-        address: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd", // change to receipient address
-        functionName: "transfer",
-        abi: [
-          {
-            constant: false,
-            inputs: [
-              {
-                name: "_to",
-                type: "address",
-              },
-              {
-                name: "_value",
-                type: "uint256",
-              },
-            ],
-            name: "transfer",
-            outputs: [],
-            payable: false,
-            stateMutability: "nonpayable",
-            type: "function",
-          },
-        ],
-        args: ["0xf2C5FFb065f5A86cA95b8079081EDfEce1d6782D", 10000000000000000],
-      });
-
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
+  const tokenAddresses = {
+    USDT: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+    DAI: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
+    WETH: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
   };
 
-  const { writeContract } = useWriteContract();
+
+const result = useBalance({
+  address: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4',
+})
+
+  const {
+        sendTransaction,
+  } = useSendTransaction();
+
+  const { writeContractAsync } = useWriteContract();
+
+  
+
+  const handlePayment = async () => {
+if(youPayToken === "MATIC") {
+  const to = "0x83DA16b0F175C3d537900FFF6Ba54B2C23aD76C5";   
+    sendTransaction({ to, value: parseEther(youPayTokenAmount.toString()) });
+   
+} else if (youPayToken === "DAI"){
+  try {      
+    const data = await writeContractAsync({
+      chainId: polygon.id,
+     address: tokenAddresses.DAI,
+      functionName: "transfer",
+
+      abi: [
+        {
+          constant: false,
+          inputs: [
+            {
+              name: "_to",
+              type: "address",
+            },
+            {
+              name: "_value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      args: ["0x83DA16b0F175C3d537900FFF6Ba54B2C23aD76C5", parseEther(youPayTokenAmount.toString())],
+    });
+
+    
+  } catch (err) {
+    console.log(err);
+  }
+} else if (youPayToken === "WETH") {
+  try {      
+    const data = await writeContractAsync({
+      chainId: polygon.id,
+     address: tokenAddresses.WETH,
+      functionName: "transfer",
+
+      abi: [
+        {
+          constant: false,
+          inputs: [
+            {
+              name: "_to",
+              type: "address",
+            },
+            {
+              name: "_value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [],
+          payable: false,
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      args: ["0x83DA16b0F175C3d537900FFF6Ba54B2C23aD76C5", parseEther(youPayTokenAmount.toString())],
+    });
+
+  
+  } catch (err) {
+    console.log(err);
+  }
+} else if (youPayToken === "USDT") {
+  try {      
+    const data = await writeContractAsync({
+      chainId: polygon.id,
+     address: tokenAddresses.USDT,
+      functionName: "transfer",
+
+      abi: [
+        {
+          "constant": false,
+          "inputs": [
+            {
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "name": "transfer",
+          "outputs": [
+            {
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "type": "function"
+        }
+      ]
+      ,
+      args: ["0x83DA16b0F175C3d537900FFF6Ba54B2C23aD76C5", Math.floor(youPayTokenAmount * Math.pow(10, 6))],
+    });
+
+    
+  } catch (err) {
+    console.log(err);
+  }
+}    
+  }; 
 
   const tokenIcons = {
     MATIC: maticIcon,
@@ -239,11 +342,7 @@ function Swap({ walletAddress }) {
     }
   };
 
-  useEffect(() => {
-    console.log(walletAddress);
-  }, [walletAddress]);
-
-  useEffect(() => {
+   useEffect(() => {
     const fetchNewPrice = async () => {
       if (youPayToken && youReceiveToken) {
         try {
@@ -303,7 +402,7 @@ function Swap({ walletAddress }) {
             const newAmount =
               (youPayTokenAmount * newRoundedPriceTokenYouPay) /
               newRoundedPriceTokenYouReceive;
-            console.log("Calculated youReceiveTokenAmount:", newAmount);
+            //console.log("Calculated youReceiveTokenAmount:", newAmount);
             setYouReceiveTokenAmount(newAmount);
           }
 
@@ -345,10 +444,10 @@ function Swap({ walletAddress }) {
 
     fetchUSDTPrice();
   }, []);
-
+/*
   async function submit() {
     const value = ethers.utils.parseUnits("2", 6); // USDT использует 6 десятичных знаков
-  }
+  }*/
 
   return (
     <div className="page-content">
@@ -607,7 +706,7 @@ function Swap({ walletAddress }) {
               )}
             </div>
             <div className="swap-button-container">
-              <button className="swap-button" onClick={handlePayment}>
+              <button className="swap-button" onClick={(handlePayment)}>
                 <span className="swap-button-content">
                   <svg
                     width="24"

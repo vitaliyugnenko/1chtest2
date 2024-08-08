@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 function App() {
   const [walletAddress, setWalletAddress] = useState("");
-  console.log(walletAddress)
+  
   return (
     <>
       <div className="main-container">
