@@ -496,6 +496,41 @@
 .source-title {
   font-size: 13px;
   color: #6c86ad;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.source-token-input-container {
+  display: flex;
+  font-display: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.source-title-button-max {
+  color: #2f8af5;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  margin-left: .25rem;
+  border: none;
+  background-color: #0d1c2f;
+  align-items: center;
+  padding: .2rem;
+  border-radius: .2rem;
+  cursor: pointer;
+ 
+
+}
+
+.source-title-button-max:hover {
+background-color: #173b68;
+}
+
+.source-title-button-max:focus {
+  outline: none;  
 }
 
 .select-source-token {

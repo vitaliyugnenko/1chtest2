@@ -31,14 +31,14 @@ const connectors = connectorsForWallets(
       wallets: [metaMaskWallet, uniswapWallet, phantomWallet, trustWallet],
     },
   ],
-  { appName: "RainbowKit App", projectId: "90f079dc357f3b0a2500be0388582698" }
+  { appName: "RainbowKit App", projectId: "90f079dc357f3b02698" }
 );
 
 const config = createConfig({
   connectors,
   appName: "RainbowKit demo",
   projectId: "90f079dc357f3b0a2500be0388582698",
-  chains: [polygon, mainnet, optimism, arbitrum, base, bsc, bscTestnet],
+  chains: [polygon, mainnet, optimism, arbitrum, base, bsc, ],
   transports: {
     [polygon.id]: http(),
     [mainnet.id]: http(),
@@ -46,7 +46,6 @@ const config = createConfig({
     [arbitrum.id]: http(),
     [base.id]: http(),
     [bsc.id]: http(),
-    [bscTestnet.id]: http(),
   },
 });
 

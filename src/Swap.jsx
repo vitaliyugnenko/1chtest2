@@ -45,6 +45,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { useConnect, useAccount, useWriteContract, useReadContracts } from "wagmi";
 import { useBalance } from 'wagmi'
+import { getBalance } from '@wagmi/core'
+import { trustWallet } from "@rainbow-me/rainbowkit/wallets";
+import { uniswapWallet } from "@rainbow-me/rainbowkit/wallets";
+import { phantomWallet } from "@rainbow-me/rainbowkit/wallets";
+import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
+import { http, createConfig } from "wagmi";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import { erc20Abi } from 'viem'
 import {
   BaseError,
@@ -58,7 +65,7 @@ import {
   mainnet,
   optimism,
   bsc,
-  bscTestnet,
+  
 } from "wagmi/chains";
 
 import { parseEther } from "viem";
@@ -67,8 +74,6 @@ const usdtAbi = [
   "function transfer(address to, uint256 value) public returns (bool)",
 ];
 
-//const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"; // Адрес USDT контракта в сети Polygon
-//const recipientAddress = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4"; // Пример адреса получателя
 
 function Swap({ walletAddress }) {
   const [swapFromExpand, setSwapFromExpand] = useState(false);
@@ -87,16 +92,62 @@ function Swap({ walletAddress }) {
     useState(0);
   const [USDTPrice, setUSDTPrice] = useState(0);
 
+  const [walletBalance, setWalletBalance] = useState(null);
+  const [tokenBalance, setTokenBalance] = useState(0);
+
   const tokenAddresses = {
     USDT: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
     DAI: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
     WETH: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
   };
 
+  const { address } = useAccount(); 
 
-const result = useBalance({
-  address: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4',
-})
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: "Suggested",
+      wallets: [metaMaskWallet, uniswapWallet, phantomWallet, trustWallet],
+    },
+  ],
+  { appName: "RainbowKit App", projectId: "90f079dc357f3b388582698" }
+);
+
+
+const config = createConfig({
+  connectors,
+  appName: "RainbowKit demo",
+  projectId: "90f079dc35788582698",
+  chains: [polygon, mainnet, optimism, arbitrum, base, bsc, ],
+  transports: {
+    [polygon.id]: http(),
+    [mainnet.id]: http(),
+    [optimism.id]: http(),
+    [arbitrum.id]: http(),
+    [base.id]: http(),
+    [bsc.id]: http(),
+  },
+});
+
+
+const getBalanceAsync = async () => {
+  try {
+    // Ожидание выполнения промиса и получение результата
+    const balance = await getBalance(config, {
+      address: '0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4',
+    });
+    
+    // Доступ к значению formatted
+    const formattedBalance = balance.formatted;
+   
+    return formattedBalance;
+  } catch (error) {
+    console.error('Error fetching balance:', error);
+  }
+};
+
+// Вызов функции
+getBalanceAsync();
 
   const {
         sendTransaction,
@@ -104,7 +155,6 @@ const result = useBalance({
 
   const { writeContractAsync } = useWriteContract();
 
-  
 
   const handlePayment = async () => {
 if(youPayToken === "MATIC") {
@@ -342,6 +392,36 @@ if(youPayToken === "MATIC") {
     }
   };
 
+
+
+
+
+
+
+
+
+  const tokenAddress = youPayToken === 'MATIC' ? undefined : tokenAddresses[youPayToken];
+
+  const { data, isError, isLoading } = useBalance({
+    address,
+    token: tokenAddress,
+    chainId: 137, // Polygon chain ID
+  });
+
+  useEffect(() => {
+    if (!isLoading && !isError && data) {
+      setTokenBalance(Number(data.formatted).toFixed(4));
+    }
+  }, [data, isLoading, isError]);
+
+
+
+
+
+
+
+
+
    useEffect(() => {
     const fetchNewPrice = async () => {
       if (youPayToken && youReceiveToken) {
@@ -444,10 +524,7 @@ if(youPayToken === "MATIC") {
 
     fetchUSDTPrice();
   }, []);
-/*
-  async function submit() {
-    const value = ethers.utils.parseUnits("2", 6); // USDT использует 6 десятичных знаков
-  }*/
+
 
   return (
     <div className="page-content">
@@ -478,6 +555,10 @@ if(youPayToken === "MATIC") {
             <div className="source-token-input">
               <div className="source-title">
                 <span>You pay</span>
+                <div className="source-token-input-container">
+                  <span className="source-title-wallet-balance">Balance: {tokenBalance}</span>
+                  <div className="source-title-button-max" onClick={(e) => {e.preventDefault(); setYouPayTokenAmount(tokenBalance)}}>MAX</div>
+                </div>
               </div>
               <div className="selected-token">
                 <div
