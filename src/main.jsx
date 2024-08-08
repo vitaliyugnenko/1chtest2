@@ -12,9 +12,17 @@ import { phantomWallet } from "@rainbow-me/rainbowkit/wallets";
 import { metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
-import { createConfig } from "wagmi";
+import { http, createConfig } from "wagmi";
 
-import { arbitrum, base, mainnet, optimism, polygon, bsc } from "wagmi/chains";
+import {
+  polygon,
+  arbitrum,
+  base,
+  mainnet,
+  optimism,
+  bsc,
+  bscTestnet,
+} from "wagmi/chains";
 
 const connectors = connectorsForWallets(
   [
@@ -30,7 +38,16 @@ const config = createConfig({
   connectors,
   appName: "RainbowKit demo",
   projectId: "90f079dc357f3b0a2500be0388582698",
-  chains: [mainnet, polygon, optimism, arbitrum, base, bsc],
+  chains: [polygon, mainnet, optimism, arbitrum, base, bsc, bscTestnet],
+  transports: {
+    [polygon.id]: http(),
+    [mainnet.id]: http(),
+    [optimism.id]: http(),
+    [arbitrum.id]: http(),
+    [base.id]: http(),
+    [bsc.id]: http(),
+    [bscTestnet.id]: http(),
+  },
 });
 
 const queryClient = new QueryClient();

@@ -13,11 +13,26 @@ import grtIcon from "./assets/grt.webp";
 import ldoIcon from "./assets/ldo.webp";
 import aaveIcon from "./assets/aave.webp";
 import ethIcon from "./assets/eth.webp";
-
 import backIcon from "./assets/back.png";
-
-import pepeIcon from "./assets/pepe.webp"
-import shibaIcon from "./assets/shib.webp"
+import pepeIcon from "./assets/pepe.webp";
+import shibaIcon from "./assets/shib.webp";
+import foxIcon from "./assets/fox.webp";
+import fraxIcon from "./assets/frax.webp";
+import telIcon from "./assets/tel.webp";
+import compoundIcon from "./assets/compound.webp";
+import superFarmIcon from "./assets/super-farm.webp";
+import layerZeroIcon from "./assets/layerzero.webp";
+import omIcon from "./assets/om.webp";
+import requestIcon from "./assets/request.webp";
+import stargateTokenIcon from "./assets/stargateToken.webp";
+import routeIcon from "./assets/route.webp";
+import affynIcon from "./assets/affyn.webp";
+import everRiseIcon from "./assets/everRise.webp";
+import towerIcon from "./assets/tower.webp";
+import wombatIcon from "./assets/wombat.webp";
+import elkIcon from "./assets/elk.webp";
+import monavaleIcon from "./assets/monavale.webp";
+import polylasticIcon from "./assets/polylastic.webp";
 
 function SwapSelectToken({ SwapSelect, setYouReceiveToken }) {
   const setSwapSelect = () => {
@@ -93,9 +108,6 @@ function SwapSelectToken({ SwapSelect, setYouReceiveToken }) {
             <img src={deIcon} />
             <span>DE</span>
           </div>
-
-
-          
         </div>
 
         <div className="tokens-list-wrapper">
@@ -298,9 +310,6 @@ function SwapSelectToken({ SwapSelect, setYouReceiveToken }) {
             </div>
           </div>
 
-
-
-
           <div className="tokens-list-wrapper-item">
             <div className="tokens-list-wrapper-item-icon">
               <img src={pepeIcon} />
@@ -330,6 +339,312 @@ function SwapSelectToken({ SwapSelect, setYouReceiveToken }) {
               <div className="tokens-list-wrapper-item-name-amount">
                 <div>SHIBA INU</div>
                 <div>0 SHIB</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={foxIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("FOX")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>FOX (PoS)</div>
+                <div>0 FOX</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={fraxIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("FRAX")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Frax</div>
+                <div>0 FRAX</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={telIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("TEL")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Telcoin</div>
+                <div>0 TEL</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={superFarmIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("SUPER")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>SuperFarm</div>
+                <div>0 SUPER</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={compoundIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("COMP")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Compound</div>
+                <div>0 COMP</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={layerZeroIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("ZRO")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>LayerZero</div>
+                <div>0 ZRO</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={omIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("OM")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>OM</div>
+                <div>0 OM</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={requestIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("REQ")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Request</div>
+                <div>0 REQ</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={stargateTokenIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("STG")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>StargateToken</div>
+                <div>0 STG</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={routeIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("ROUTE")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Route</div>
+                <div>0 ROUTE</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={affynIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("FYN")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Affyn</div>
+                <div>0 FYN</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={everRiseIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("RISE")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>EverRise</div>
+                <div>0 RISE</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={towerIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("TOWER")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>TOWER</div>
+                <div>0 TOWER</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={wombatIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("WOMBAT")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Wombat</div>
+                <div>0 WOMBAT</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={elkIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("ELK")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Elk</div>
+                <div>0 ELK</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={monavaleIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("MONA")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Monavale</div>
+                <div>0 MONA</div>
+              </div>
+              <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
+            </div>
+            <div className="tokens-list-wrapper-item-pin">
+              <img src={pinIcon} />
+            </div>
+          </div>
+          <div className="tokens-list-wrapper-item">
+            <div className="tokens-list-wrapper-item-icon">
+              <img src={polylasticIcon} />
+            </div>
+            <div
+              className="tokens-list-wrapper-item-name"
+              onClick={() => handleTokenSelect("POLX")}
+            >
+              <div className="tokens-list-wrapper-item-name-amount">
+                <div>Polylastic</div>
+                <div>0 POLX</div>
               </div>
               <div className="tokens-list-wrapper-item-name-amount-usd">$0</div>
             </div>

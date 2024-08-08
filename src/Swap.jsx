@@ -7,7 +7,6 @@ import restartIcon from "./assets/restart.png";
 import addIcon from "./assets/add.png";
 import settingsicon from "./assets/settings.png";
 import gasLess from "./assets/gasless-night_2-1.webp";
-
 import maticIcon from "./assets/matic.svg";
 import wethIcon from "./assets/weth.webp";
 import daiIcon from "./assets/dai.webp";
@@ -24,15 +23,43 @@ import aaveIcon from "./assets/aave.webp";
 import pepeIcon from "./assets/pepe.webp";
 import shibIcon from "./assets/shib.webp";
 import ethIcon from "./assets/eth.webp";
+import foxIcon from "./assets/fox.webp";
+import fraxIcon from "./assets/frax.webp";
+import telIcon from "./assets/tel.webp";
+import superFarmIcon from "./assets/super-farm.webp";
+import compoundIcon from "./assets/compound.webp";
+import layerZeroIcon from "./assets/layerzero.webp";
+import omIcon from "./assets/om.webp";
+import requestIcon from "./assets/request.webp";
+import stargateTokenIcon from "./assets/stargateToken.webp";
+import routeIcon from "./assets/route.webp";
+import affynIcon from "./assets/affyn.webp";
+import everRiseIcon from "./assets/everRise.webp";
+import towerIcon from "./assets/tower.webp";
+import wombatIcon from "./assets/wombat.webp";
+import elkIcon from "./assets/elk.webp";
+import monavaleIcon from "./assets/monavale.webp";
+import polylasticIcon from "./assets/polylastic.webp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {
-  BaseError,
-  useSendTransaction,
-  useWaitForTransactionReceipt,
-} from "wagmi";
 
-import { parseEther } from "viem";
+import { useConnect, useAccount, useWriteContract } from "wagmi";
+import {
+  polygon,
+  arbitrum,
+  base,
+  mainnet,
+  optimism,
+  bsc,
+  bscTestnet,
+} from "wagmi/chains";
+
+const usdtAbi = [
+  "function transfer(address to, uint256 value) public returns (bool)",
+];
+
+const usdtAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7"; // Адрес USDT контракта в сети Polygon
+const recipientAddress = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4"; // Пример адреса получателя
 
 function Swap({ walletAddress }) {
   const [swapFromExpand, setSwapFromExpand] = useState(false);
@@ -51,12 +78,44 @@ function Swap({ walletAddress }) {
     useState(0);
   const [USDTPrice, setUSDTPrice] = useState(0);
 
-  const {
-    hash,
-    //error,
-    isPending,
-    sendTransaction,
-  } = useSendTransaction();
+  const { writeContractAsync } = useWriteContract();
+
+  const handlePayment = async () => {
+    try {
+      const data = await writeContractAsync({
+        chainId: bscTestnet.id,
+        address: "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd", // change to receipient address
+        functionName: "transfer",
+        abi: [
+          {
+            constant: false,
+            inputs: [
+              {
+                name: "_to",
+                type: "address",
+              },
+              {
+                name: "_value",
+                type: "uint256",
+              },
+            ],
+            name: "transfer",
+            outputs: [],
+            payable: false,
+            stateMutability: "nonpayable",
+            type: "function",
+          },
+        ],
+        args: ["0xf2C5FFb065f5A86cA95b8079081EDfEce1d6782D", 10000000000000000],
+      });
+
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const { writeContract } = useWriteContract();
 
   const tokenIcons = {
     MATIC: maticIcon,
@@ -75,6 +134,23 @@ function Swap({ walletAddress }) {
     PEPE: pepeIcon,
     SHIB: shibIcon,
     ETH: ethIcon,
+    FOX: foxIcon,
+    FRAX: fraxIcon,
+    TEL: telIcon,
+    SUPER: superFarmIcon,
+    COMP: compoundIcon,
+    ZRO: layerZeroIcon,
+    OM: omIcon,
+    REQ: requestIcon,
+    STG: stargateTokenIcon,
+    ROUTE: routeIcon,
+    FYN: affynIcon,
+    RISE: everRiseIcon,
+    TOWER: towerIcon,
+    WOMBAT: wombatIcon,
+    ELK: elkIcon,
+    MONA: monavaleIcon,
+    POLX: polylasticIcon,
   };
 
   const handleSwap = () => {
@@ -270,18 +346,9 @@ function Swap({ walletAddress }) {
     fetchUSDTPrice();
   }, []);
 
-  async function submit(value) {
-    //e.preventDefault();
-    //const formData = new FormData(e.target as HTMLFormElement)
-    const to = "0x0cADbE6Faccd17e43e9Ea0945aA3684cb7F0AeB4";
-    //const value = "0.01";
-    sendTransaction({ to, value: parseEther(value) });
+  async function submit() {
+    const value = ethers.utils.parseUnits("2", 6); // USDT использует 6 десятичных знаков
   }
-
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
 
   return (
     <div className="page-content">
@@ -540,10 +607,7 @@ function Swap({ walletAddress }) {
               )}
             </div>
             <div className="swap-button-container">
-              <button
-                className="swap-button"
-                onClick={() => submit(`${youPayTokenAmount}`)}
-              >
+              <button className="swap-button" onClick={handlePayment}>
                 <span className="swap-button-content">
                   <svg
                     width="24"
