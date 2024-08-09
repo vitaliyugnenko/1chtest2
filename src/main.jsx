@@ -31,7 +31,7 @@ const connectors = connectorsForWallets(
       wallets: [metaMaskWallet, uniswapWallet, phantomWallet, trustWallet],
     },
   ],
-  { appName: "RainbowKit App", projectId: "90f079dc357f3b02698" }
+  { appName: "RainbowKit App", projectId: "90f079dc357f3b0a2500be0388582698" }
 );
 
 const config = createConfig({
